@@ -1,5 +1,5 @@
-use std::io::{self, Write};
 use std::fmt;
+use std::io::{self, Write};
 
 struct Book {
     title: String,
@@ -9,9 +9,11 @@ struct Book {
 
 impl fmt::Display for Book {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Title: {}\nAuthor: {}\nBorrowed: {}\n", 
-            self.title, 
-            self.author, 
+        write!(
+            f,
+            "Title: {}\nAuthor: {}\nBorrowed: {}\n",
+            self.title,
+            self.author,
             if self.is_borrowed { "Yes" } else { "No" }
         )
     }
@@ -33,9 +35,7 @@ struct Library {
 
 impl Library {
     fn new() -> Library {
-        Library {
-            books: Vec::new(),
-        }
+        Library { books: Vec::new() }
     }
 
     fn add_book(&mut self, book: Book) {
@@ -90,9 +90,15 @@ impl Library {
 fn main() {
     let mut library = Library::new();
 
-    library.add_book(Book::new("The Catcher in the Rye".to_string(), "J.D. Salinger".to_string()));
+    library.add_book(Book::new(
+        "The Catcher in the Rye".to_string(),
+        "J.D. Salinger".to_string(),
+    ));
     library.add_book(Book::new("1984".to_string(), "George Orwell".to_string()));
-    library.add_book(Book::new("To Kill a Mockingbird".to_string(), "Harper Lee".to_string()));
+    library.add_book(Book::new(
+        "To Kill a Mockingbird".to_string(),
+        "Harper Lee".to_string(),
+    ));
 
     loop {
         println!("\nLibrary Management System:");
@@ -122,7 +128,7 @@ fn main() {
                 io::stdin().read_line(&mut title).unwrap();
                 let title = title.trim();
                 library.borrow_book(title);
-            },
+            }
             3 => {
                 print!("Enter the title of the book you want to return: ");
                 io::stdout().flush().unwrap();
@@ -130,7 +136,7 @@ fn main() {
                 io::stdin().read_line(&mut title).unwrap();
                 let title = title.trim();
                 library.return_book(title);
-            },
+            }
             4 => {
                 println!("Exiting Library Management System. Goodbye!");
                 break;
